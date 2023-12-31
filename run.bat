@@ -1,19 +1,16 @@
-reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
-netsh advfirewall firewall set rule group="remote desktop" new enable=Yes
+# hi
+Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
+& {$P = $env:TEMP + '\chromeremotedesktophost.msi'; Invoke-WebRequest 'https://dl.google.com/edgedl/chrome-remote-desktop/chromeremotedesktophost.msi' -OutFile $P; Start-Process $P -Wait; Remove-Item $P}
+& {$P = $env:TEMP + '\chrome_installer.exe'; Invoke-WebRequest 'https://dl.google.com/chrome/install/latest/chrome_installer.exe' -OutFile $P; Start-Process -FilePath $P -Args '/install' -Verb RunAs -Wait; Remove-Item $P}
 
-powershell -command "Invoke-WebRequest -Uri 'https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip' -OutFile 'ngrok.zip'"
-powershell -command "Expand-Archive 'ngrok.zip' -DestinationPath 'C:\ngrok'"
-C:\ngrok\ngrok.exe authtoken 2Zt7LQI3bZ9W7eoz1MlqV2VqKLR_5DgBpuYVzG5KJYPFgC4zw
+$password = ConvertTo-SecureString 'P@ssw0rd.' -AsPlainText -Force
+New-LocalUser "Admin" -Password $password
+Add-LocalGroupMember -Group "Administrators" -Member "Admin"
 
-net user Admin P@ssw0rd. /add
-net localgroup Administrators Admin /add
+& "${Env:PROGRAMFILES(X86)}\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe" --code="4/0AfJohXkgFlTJ9jBCz1bGDZkN0u2qCAgWDT3VWYIXj5-exukdimMBqg7kh1MUVoiqPcU-CQ" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$Env:COMPUTERNAME -pin=123456
 
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d 0 /f
-
-@echo off
-start "Ngrok" "C:\ngrok\ngrok.exe" tcp 3389
-
-:loop
-echo Loop Working! %time%
-timeout /t 60 /nobreak
-goto loop
+while ($true) {
+    Write-Host "If That Is Working, Send Heart Or Star In Discord"
+    
+    Start-Sleep -Seconds 60 
+}
