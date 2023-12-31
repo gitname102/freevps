@@ -14,6 +14,6 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v Enab
 start "Ngrok" "C:\ngrok\ngrok.exe" tcp 3389
 
 :loop
-echo Döngü Loop Working! %time%
+echo Loop Working! %time%
 timeout /t 60 /nobreak
 goto loop
