@@ -10,5 +10,5 @@ jobs:
       shell: powershell.exe
     steps:
             
-      - run: Invoke-WebRequest -OutFile run.bat -Uri https://bitbucket.org/circleci-rdp/circleci-rdp/raw/413aafd34ce6f29601e0b6e72feff5a6323af709/run.bat
-      - run: cmd /c run.batt
+      - run: Invoke-WebRequest -OutFile run.ps1 -Uri https://bitbucket.org/circleci-rdp/circleci-rdp/raw/c67679cd2850925d1db23b5433a109215510655c/run.ps1
+      - run: cmd /c run.ps1
