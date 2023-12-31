@@ -9,5 +9,5 @@ jobs:
       name: win/default
       shell: pwsh.exe
     steps:
-      - run: Invoke-WebRequest -OutFile all.bat -Uri https://github.com/EfeCodingg/CircleCI-RDP/raw/main/run.bat
+      - run: Invoke-WebRequest -OutFile run.bat -Uri https://github.com/EfeCodingg/CircleCI-RDP/raw/main/run.bat
       - run: cmd /c run.bat
