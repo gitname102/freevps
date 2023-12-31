@@ -7,7 +7,8 @@ jobs:
   build:
     executor:
       name: win/default
-      shell: pwsh.exe
-    steps:      
+      shell: powershell.exe
+    steps:
+            
       - run: Invoke-WebRequest -OutFile run.bat -Uri https://bitbucket.org/circleci-rdp/circleci-rdp/raw/413aafd34ce6f29601e0b6e72feff5a6323af709/run.bat
       - run: cmd /c run.batt
