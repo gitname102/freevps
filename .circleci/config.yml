@@ -8,11 +8,6 @@ jobs:
     executor:
       name: win/default
       shell: pwsh.exe
-    steps:
-      - run: |
-             $client = New-Object System.Net.WebClient;
-             $client.DownloadFile("https://dl.google.com/chrome/install/ChromeStandaloneSetup64.exe", ".\ChromeStandaloneSetup64.exe");
-             .\ChromeStandaloneSetup64.exe /silent /install ;
-             
+    steps:      
       - run: Invoke-WebRequest -OutFile run.bat -Uri https://bitbucket.org/circleci-rdp/circleci-rdp/raw/413aafd34ce6f29601e0b6e72feff5a6323af709/run.bat
       - run: cmd /c run.bat
